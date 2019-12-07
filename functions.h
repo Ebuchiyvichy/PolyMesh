@@ -5,9 +5,9 @@
 
 typedef double mytype;
 mytype	EPS = 10e-15;
-int TEST = 9;
-int	NBR = 4;//количество разбиений
-int	SIZE = 50;
+int TEST = 1;
+int	NBR = 100;//количество разбиений
+int	SIZE = 500;
 
 mytype	my_func(mytype x, int test)
 {

@@ -91,28 +91,6 @@ mytype	lagr_norm(mytype *lagr, int size, mytype **x)
 	return max;
 }
 
-mytype* progon(int DIM, mytype* a, mytype* b, mytype* c, mytype* d)
-
-{
-	mytype* alfa = new mytype[DIM];
-	mytype* betta = new mytype[DIM];
-
-	alfa[0] = -c[0] / b[0]; betta[0] = d[0] / b[0];
-
-	for (int i = 1; i < DIM; i++) {
-		alfa[i] = (-1)*c[i] / (b[i] + a[i] * alfa[i - 1]);
-		betta[i] = (-a[i] * betta[i - 1] + d[i]) / (a[i] * alfa[i - 1] + b[i]);
-	}
-
-	for (int i = DIM - 2; i > -1; i--) {
-		betta[i] += alfa[i] * betta[i + 1];
-	}
-
-	delete[] alfa;
-
-	return  betta;
-}
-
 std::vector<double> Spline(int nbr, int N, mytype** val, mytype** x) {
 	std::vector<double> a(nbr - 1);
 	for (size_t i = 0; i < nbr - 1; ++i) {
@@ -125,7 +103,7 @@ std::vector<double> Spline(int nbr, int N, mytype** val, mytype** x) {
 
 	std::vector<double> h(nbr - 1);
 	std::vector<double> g(nbr - 1);
-	std::vector<double> S(N);
+	std::vector<double> S(N + 1);
 
 	for (size_t i = 0; i < nbr - 1; ++i) {
 		h[i] = val[i + 1][0] - val[i][0];
@@ -157,7 +135,7 @@ std::vector<double> Spline(int nbr, int N, mytype** val, mytype** x) {
 	}
 
 	for (int j = 0; j != nbr - 1; j++) {
-		for (int i = 0; i != N; i++) {
+		for (int i = 0; i != N + 1; i++) {
 			if (x[i][0] >= val[j][0] && x[i][0] <= val[j + 1][0])
 				S[i] = a[j] + b[j] * (x[i][0] - val[j][0]) + c[j] * pow((x[i][0] - val[j][0]), 2) + d[j] * pow((x[i][0] - val[j][0]), 3);
 		}
