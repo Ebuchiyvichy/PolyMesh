@@ -6,8 +6,8 @@
 typedef double mytype;
 mytype	EPS = 10e-15;
 int TEST = 1;
-int	NBR = 100;//количество разбиений
-int	SIZE = 500;
+int	NBR = 4;//количество разбиений
+int	SIZE = 300;
 
 mytype	my_func(mytype x, int test)
 {
@@ -22,7 +22,7 @@ mytype	my_func(mytype x, int test)
 	else if (test == 5)
 		return (exp(x));
 	else if (test == 6)
-		return (1);
+		return (x);
 	else if (test == 7 || test == 8)
 		return sin(M_PI * x);
 	else if (test == 9 || test == 10)
@@ -92,8 +92,8 @@ mytype	**cheb_mesh(int test, int n, mytype a, mytype b)
 		mesh[i] = new mytype[2];
 	for (int i = 0; i <= n; i++)
 	{
-		mesh[i][0] = (a + b) / 2 + (b - a) / 2 * cos((2 * i + 1) * M_PI / (2 * (n + 1)));
-		mesh[i][1] = my_func(mesh[i][0], test);
+		mesh[n - i][0] = (a + b) / 2 + (b - a) / 2 * cos((2 * i + 1) * M_PI / (2 * (n + 1)));
+		mesh[n - i][1] = my_func(mesh[n - i][0], test);
 	}
 	return (mesh);
 }
